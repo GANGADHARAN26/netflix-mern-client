@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import backgroundImage from "../assets/home.jpg";
 import MovieLogo from "../assets/homeTitle.webp";
@@ -6,10 +6,26 @@ import {FaPlay} from "react-icons/fa";
 import {AiOutlineInfoCircle} from "react-icons/ai";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, getGenres } from "../store";
+import Slider from "../components/Slider";
 
 const Netflix = () => {
-  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const navigate=useNavigate(); 
+  const genresLoaded=useSelector((state)=>state.netflix.genresLoaded); 
+  const movies=useSelector((state)=>state.netflix.movies)
   const [isScrolled, setIsScrolled] = useState(false);
+  console.log(movies);
+  useEffect(() =>{
+
+    dispatch(getGenres())
+  },[])
+  useEffect(()=>{
+    if(genresLoaded){
+      dispatch(fetchMovies({type:"all"}))
+    }
+  },[genresLoaded])
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
@@ -33,10 +49,11 @@ const Netflix = () => {
           </div>
         </div>
       </div>
+      <Slider movies={movies}/>
     </Container>
   );
 };
-const Container = styled.div`
+const Container = styled.div` 
   background-color: black;
   .hero {
     position: relative;
