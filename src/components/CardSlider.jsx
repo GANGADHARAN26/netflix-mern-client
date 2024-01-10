@@ -4,7 +4,7 @@ import Card from "./Card";
 import React, { useRef, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-export default React.memo(function CardSlider({ data, title }) {
+export default function CardSlider({ data, title }) {
   const listRef = useRef();
   const [sliderPosition, setSliderPosition] = useState(0);
   const [showControls, setShowControls] = useState(false);
@@ -50,7 +50,7 @@ export default React.memo(function CardSlider({ data, title }) {
     </div>
   </Container>
   );
-});
+};
 const Container = styled.div`
   gap: 1rem;
   position: relative;

@@ -9,8 +9,8 @@ import Header from "../components/Header";
 const Login = () => {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
+    email: "anbumanickam1972@gmail.com",
+    password: "password",
   });
   const handleLogIn = async () => {
     try {
